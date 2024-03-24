@@ -8,18 +8,18 @@ require __DIR__ . '/../src/config/db.php';
 $app = AppFactory::create();
 
 
-//all posts
-$app->get('/slim4/posts/', function (Request $request, Response $response, $args) {
+//all comments
+$app->get('/slim4/comments/', function (Request $request, Response $response, $args) {
 
     $db = new Db();
 
     try {
         $db = $db->connect();
 
-        $posts = $db->query("SELECT * FROM posts")->fetchAll(PDO::FETCH_OBJ);
+        $comments = $db->query("SELECT * FROM comments")->fetchAll(PDO::FETCH_OBJ);
 
-        if (!empty($posts)) {
-            $response->getBody()->write(json_encode($posts, JSON_PRETTY_PRINT));
+        if (!empty($comments)) {
+            $response->getBody()->write(json_encode($comments, JSON_PRETTY_PRINT));
             return $response
                 ->withHeader("Content-Type", 'application/json')
                 ->withStatus(200);
